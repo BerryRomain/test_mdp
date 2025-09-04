@@ -2,16 +2,23 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Tester son Mot De Passe</title>
+<title>Password Strength Checker</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<h2>Tester son Mot De Passe 🔐</h2>
+<h2>Password Strength Checker 🔐</h2>
+
+<!-- Champ texte visible -->
 <input type="text" id="pwd" placeholder="Entrez un mot de passe">
 <button onclick="checkPwd()">Tester</button>
 <button onclick="generatePwd()">Générer un mot de passe fort</button>
+
 <div id="result"></div>
-<div id="bar" style="width: 100%; height: 20px; background-color: grey;"></div>
+<div id="bar" style="width: 100%; height: 20px; background-color: black;"></div>
+<div id="criteria"></div>
+
+<!-- Bouton portfolio -->
+<button id="portfolio-btn" onclick="goPortfolio()">Retour au Portfolio</button>
 
 <script>
 async function checkPwd() {
@@ -23,28 +30,40 @@ async function checkPwd() {
     });
     const data = await response.json();
     const score = data.score;
-
-    const colors = ["red", "orange", "yellow", "green"];
-    document.getElementById("bar").style.backgroundColor = colors[Math.min(score, 4)];
+    
+    // Couleurs selon le score
+    const colors = ["black", "red", "yellow", "lightgreen", "green", "purple"];
+    document.getElementById("bar").style.backgroundColor = colors[score];
+    
     document.getElementById("result").innerText = `Score: ${score}/5`;
+
+    // Critères
+    const criteria = [
+        {label: "8 caractères minimum", done: data.criteria.length >= 8},
+        {label: "Au moins une majuscule", done: data.criteria.uppercase},
+        {label: "Au moins une minuscule", done: data.criteria.lowercase},
+        {label: "Au moins un chiffre", done: data.criteria.digit},
+        {label: "Au moins un caractère spécial", done: data.criteria.special},
+    ];
+
+    let criteriaHTML = "";
+    criteria.forEach(c => {
+        criteriaHTML += `${c.done ? '✅' : '❌'} ${c.label}<br>`;
+    });
+    document.getElementById("criteria").innerHTML = criteriaHTML;
 }
 
 async function generatePwd() {
     const response = await fetch('/generate');
     const data = await response.json();
     document.getElementById("pwd").value = data.password;
-    checkPwd();
+    checkPwd(); // Met à jour directement la couleur et les critères
 }
 
 // Redirection vers le portfolio
 function goPortfolio() {
-    window.location.href = "https://berryromain.github.io/portfolio/";
+    window.location.href = "https://ton-portfolio.com"; // ← remplace par ton lien
 }
 </script>
-
-<!-- Bouton portfolio -->
-<button id="portfolio-btn" onclick="goPortfolio()">Retour au Portfolio</button>
 </body>
 </html>
-
-
