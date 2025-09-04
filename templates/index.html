@@ -37,14 +37,15 @@ async function checkPwd() {
     
     document.getElementById("result").innerText = `Score: ${score}/5`;
 
-    // Critères
+    
     const criteria = [
-        {label: "8 caractères minimum", done: data.criteria.length >= 8},
-        {label: "Au moins une majuscule", done: data.criteria.uppercase},
-        {label: "Au moins une minuscule", done: data.criteria.lowercase},
-        {label: "Au moins un chiffre", done: data.criteria.digit},
-        {label: "Au moins un caractère spécial", done: data.criteria.special},
+    {label: "8 caractères minimum", done: data.criteria.length},
+    {label: "Au moins une majuscule", done: data.criteria.uppercase},
+    {label: "Au moins une minuscule", done: data.criteria.lowercase},
+    {label: "Au moins un chiffre", done: data.criteria.digit},
+    {label: "Au moins un caractère spécial", done: data.criteria.special},
     ];
+
 
     let criteriaHTML = "";
     criteria.forEach(c => {
@@ -67,4 +68,5 @@ function goPortfolio() {
 </script>
 </body>
 </html>
+
 
