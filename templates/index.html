@@ -2,11 +2,11 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Tester son Mot De Passe</title>
+<title>Password Strength Checker</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<h2>Tester son Mot De Passe 🔐</h2>
+<h2>Password Strength Checker 🔐</h2>
 <input type="password" id="pwd" placeholder="Entrez un mot de passe">
 <button onclick="checkPwd()">Tester</button>
 <button onclick="generatePwd()">Générer un mot de passe fort</button>
@@ -35,6 +35,14 @@ async function generatePwd() {
     document.getElementById("pwd").value = data.password;
     checkPwd();
 }
+
+// Redirection vers le portfolio
+function goPortfolio() {
+    window.location.href = "https://ton-portfolio.com"; // ← remplace par ton lien
+}
 </script>
+
+<!-- Bouton portfolio -->
+<button id="portfolio-btn" onclick="goPortfolio()">Retour au Portfolio</button>
 </body>
 </html>
